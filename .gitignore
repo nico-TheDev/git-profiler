@@ -1,0 +1,5 @@
+/node_modules
+.eslintrc.json
+.prettierrc
+postcss.config.js
+tailwind.config.js
