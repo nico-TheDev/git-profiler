@@ -22,7 +22,7 @@ export default function UserDetails({ profile }) {
 
       {/*WORK DETAILS */}
 
-      <div className="grid p-2 gap-2 items-center mb-4">
+      <div className="w-content flex justify-between my-2 flex-col sm:flex-row mx-auto">
         {profile.company && <Detail text={profile.company} icon="briefcase" />}
         {profile.location && (
           <Detail text={profile.location} icon="location-pin" />
@@ -37,10 +37,10 @@ export default function UserDetails({ profile }) {
 
       {/* STAT COUNT */}
 
-      <div className="grid grid-cols-3 gap-2">
-          <DetailCard label='repositories' count={profile.public_repos}/>
-          <DetailCard label='followers' count={profile.followers}/>
-          <DetailCard label='following' count={profile.following}/>
+      <div className="flex justify-center ">
+        <DetailCard label="repositories" count={profile.public_repos} />
+        <DetailCard label="followers" count={profile.followers} />
+        <DetailCard label="following" count={profile.following} />
       </div>
     </div>
   );

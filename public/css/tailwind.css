@@ -1,5 +1,7 @@
 @tailwind base;
 @tailwind components;
 
-
+.justify-items{
+    justify-items: center;
+}
 @tailwind utilities;
