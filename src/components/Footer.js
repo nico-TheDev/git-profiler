@@ -3,20 +3,26 @@ import React from "react";
 export default function Footer() {
   return (
     <footer className="bg-gray-900">
-      <div className="w-90 mx-auto flex justify-between py-8">
+      <div className="grid gap-4 w-90 mx-auto md:flex md:justify-between py-8 text-center text-xs md:text-sm items-center">
         <p>
           Original Idea by
           <a
             href="https://github.com/bchiang7/octoprofile"
             target="_blank"
             rel="noreferrer"
-            className='hover:text-green-500 hover:underline'
+            className="hover:text-green-500 hover:underline"
           >
-           {' '}Britanny Chang
+            {" "}
+            Britanny Chang
           </a>
         </p>
 
-        <p>Made with React|TailwindCSS|FramerMotion|GhPolyglot|ChartJS</p>
+        <p>
+          Made with{" "}
+          <span className="block">
+            React | TailwindCSS | FramerMotion | GhPolyglot | ChartJS
+          </span>
+        </p>
 
         <h4>
           Coded by
@@ -24,9 +30,10 @@ export default function Footer() {
             href="https://github.com/theAspiringDev1"
             target="_blank"
             rel="noreferrer"
-            className='hover:text-main hover:underline'
+            className="hover:text-main hover:underline"
           >
-             {' '}Norberto Ignacio
+            {" "}
+            Norberto Ignacio
           </a>
         </h4>
       </div>

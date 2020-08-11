@@ -17,9 +17,9 @@ export default function RepoCard({ info, color }) {
           </svg>
           {info.name}
         </h3>
-        <p className="text-xs mb-8">{info.description}</p>
+        <p className="text-xs mb-8 row-span-2">{info.description}</p>
 
-        <div className="flex text-gray-600 text-xs row-span-2 self-end">
+        <div className="flex text-gray-600 text-xs">
           {info.language && (
             <p className="mr-2 flex items-center">
               <span

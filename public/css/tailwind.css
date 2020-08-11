@@ -8,7 +8,7 @@
 }
 
 .graph-card{
-    @apply w-full p-4 bg-white shadow-lg relative text-gray-900 h-card;
+    @apply w-full px-4 pt-4 py-10 bg-white shadow-lg relative text-gray-900 h-card rounded-lg;
 }
 
 @tailwind utilities;

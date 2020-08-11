@@ -26,6 +26,7 @@ export default function BarChart({ title, repos, colors:{ colors, colorHovers } 
       <h2 className="text-center uppercase text-2xl">{title}</h2>
       <Bar
         data={data}
+        height={200}
         options={{
           maintainAspectRatio: false,
           responsive: true,

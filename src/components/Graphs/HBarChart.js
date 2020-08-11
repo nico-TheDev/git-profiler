@@ -30,8 +30,9 @@ export default function BarChart({
       <h2 className="text-center uppercase text-2xl">{title}</h2>
       <HorizontalBar
         data={data}
+        height={200}
         options={{
-          maintainAspectRatio: true,
+          maintainAspectRatio: false,
           responsive: true,
           aspectRatio: 1,
           legend: {
