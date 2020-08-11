@@ -4,11 +4,11 @@ import DetailCard from "./DetailCard";
 
 export default function UserDetails({ profile }) {
   return (
-    <div className="h-screen mx-auto text-center pt-16 pb-8 px-4">
+    <div className="h-screen mx-auto text-center pt-16 pb-8 px-4 lg:pt-32 bg-gray-900">
       <img
         src={profile.avatar_url}
         alt="user profile"
-        className="w-40 h-40 rounded-full mb-4 block mx-auto border-8 border-main"
+        className="w-40 h-40 rounded-full mb-4 block mx-auto border-8 border-main lg:w-48 lg:h-48"
       />
       <h2 className="text-3xl font-bold">{profile.name}</h2>
       <a

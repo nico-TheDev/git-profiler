@@ -1,28 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import GhPolyglot from "gh-polyglot";
+import dotenv from "dotenv";
 
 import UserDetails from "./UserDetails";
 import Loader from "./Loader";
+import RepoList from "./RepoList";
+import UserGraphs from "./UserGraphs";
+import Footer from "./Footer";
+
+dotenv.config();
 
 export default function UserProfile() {
   const params = useParams();
+  const history = useHistory();
   const [profileData, setProfileData] = useState(null);
   const [profileStats, setProfileStats] = useState(null);
   const [profileRepos, setProfileRepos] = useState([]);
+  const [graphData, setGraphData] = useState(null);
+  const [colors, setColors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const getProfileData = async () => {
-    getProfileRepos();
     try {
+      getProfileRepos();
       const response = await fetch(
-        `https://api.github.com/users/${params.username}`
+        `https://api.github.com/users/${params.username}?client_id=${process.env.CLIENT_ID}&client_secret=${process.env.CLIENT_SECRET}`
       );
       const data = await response.json();
       setProfileData(data);
-      setIsLoading(false);
     } catch (err) {
-      console.log(err);
+      history.push("/error");
     }
   };
 
@@ -32,6 +40,7 @@ export default function UserProfile() {
     targetUser.getAllRepos((err, stats) => {
       if (err) {
         console.log(err);
+        // history.push("/error");
       } else {
         // console.log(stats);
         const repos = stats
@@ -49,9 +58,24 @@ export default function UserProfile() {
           }));
 
         const topRepos = repos.length > 9 ? repos.slice(0, 9) : repos;
-
-        console.log(topRepos);
         setProfileRepos(topRepos);
+        setGraphData(topRepos);
+        setIsLoading(false);
+      }
+    });
+
+    targetUser.userStats((err, stats) => {
+      if (err) {
+        // history.push("/error");
+      } else {
+        console.log(stats);
+        setProfileStats(stats);
+        const colors = stats.map((item) => ({
+          language: item.label,
+          color: item.color,
+        }));
+
+        setColors(colors);
       }
     });
   };
@@ -61,9 +85,20 @@ export default function UserProfile() {
   }, [params.username]);
 
   return (
-    <div className="bg-gray-900">
+    <main>
       {isLoading ? <Loader /> : null}
       {profileData && <UserDetails profile={profileData} />}
-    </div>
+      {graphData && profileStats && (
+        <UserGraphs profileStats={profileStats} repos={graphData} />
+      )}
+      {profileRepos.length !== 0 && (
+        <RepoList
+          repoList={profileRepos}
+          setProfileRepos={setProfileRepos}
+          colors={colors}
+        />
+      )}
+      {!isLoading && <Footer />}
+    </main>
   );
 }

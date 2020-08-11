@@ -5,3 +5,4 @@ postcss.config.js
 tailwind.config.js
 dist/
 .cache/
+.env

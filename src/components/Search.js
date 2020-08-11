@@ -30,7 +30,7 @@ export default function Search() {
         <input
           type="text"
           placeholder="Username..."
-          className="w-full block py-2 px-8 text-xl rounded rounded-b-md text-blue-900"
+          className="w-full block py-2 px-8 text-2xl rounded rounded-b-md text-main bg-gray-800"
           onChange={handleChange}
           value={username}
         />

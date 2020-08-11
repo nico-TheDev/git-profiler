@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel ./public/index.html",
+    "build": "parcel build ./public/index.html",
     "format": "prettier --write \"src/**/*.{js,jsx}\"",
     "lint": "eslint \"src/**/*.{js,jsx}\" --quiet",
     "build-css": "postcss ./public/css/tailwind.css -o public/css/style.css",
@@ -15,10 +16,12 @@
   "license": "ISC",
   "dependencies": {
     "chart.js": "^2.9.3",
+    "dotenv": "^8.2.0",
     "framer-motion": "^2.3.0",
     "gh-polyglot": "^2.3.3",
     "reac": "0.0.0",
     "react": "^16.13.1",
+    "react-chartjs-2": "^2.10.0",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0"
   },
