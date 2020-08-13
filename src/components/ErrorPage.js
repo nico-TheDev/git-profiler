@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import getIcon from "../misc/getIcon";
 
 export default function ErrorPage() {
   const location = useLocation();
-  const [isNoUser] = useState(location.pathname.includes('notFound'));
+  const isNoUser = location.pathname.includes("notFound");
 
   return (
     <div className="w-screen h-screen bg-dark grid justify-center items-center text-center content-center">

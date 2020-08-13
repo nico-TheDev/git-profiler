@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Detail from "./Detail";
 import DetailCard from "./DetailCard";
+import formatTime from "../misc/FormatTime";
 
 export default function UserDetails({ profile }) {
   return (
@@ -53,26 +54,4 @@ export default function UserDetails({ profile }) {
       </motion.div>
     </div>
   );
-}
-
-function formatTime(fullDate) {
-  const date = fullDate.slice(0, 10).split("-");
-  const [year, month, day] = date;
-
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  return `${months[month - 1]} ${day}, ${year}`;
 }

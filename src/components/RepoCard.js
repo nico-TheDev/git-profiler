@@ -13,7 +13,7 @@ export default function RepoCard({ info, color }) {
       >
         <h3 className="flex item-center text-lg mb-2">
           <svg className="w-6 h-6 fill-current mr-2">
-            <use href={getIcon("bookmark")}></use>
+            <use href={getIcon("bookmark")}/>
           </svg>
           {info.name}
         </h3>
@@ -31,13 +31,13 @@ export default function RepoCard({ info, color }) {
           )}
           <p className="mr-2 flex items-center">
             <svg className="w-4 h-4 fill-current mr-2">
-              <use href={getIcon("star-full")}></use>
+              <use href={getIcon("star-full")}/>
             </svg>
             {numberWithCommas(info.stars)}
           </p>
           <p className="mr-2 flex items-center">
             <svg className="w-4 h-4 fill-current mr-2">
-              <use href={getIcon("code-fork")}></use>
+              <use href={getIcon("code-fork")}/>
             </svg>
             {numberWithCommas(info.forks)}
           </p>

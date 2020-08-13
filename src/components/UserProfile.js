@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import GhPolyglot from "gh-polyglot";
-import dotenv from "dotenv";
 
 import UserDetails from "./UserDetails";
 import Loader from "./Loader";
 import RepoList from "./RepoList";
 import UserGraphs from "./UserGraphs";
 import Footer from "./Footer";
-
-dotenv.config();
 
 export default function UserProfile() {
   const params = useParams();
@@ -83,21 +80,21 @@ export default function UserProfile() {
 
   return (
     <main>
-      {isLoading ? <Loader /> : null}
-      {profileData && profileRepos ? (
+      {isLoading && <Loader />}
+      {(profileData && profileRepos) && (
         <UserDetails profile={profileData} />
-      ) : null}
-      {profileStats && graphData ? (
+      )}
+      {(profileStats && graphData) && (
         <UserGraphs profileStats={profileStats} repos={graphData} />
-      ) : null}
-      {profileRepos ? (
+      )}
+      {profileRepos && (
         <RepoList
           repoList={profileRepos}
           setProfileRepos={setProfileRepos}
           colors={colors}
         />
-      ) : null}
-      {!isLoading ? <Footer /> : null}
+      ) }
+      {!isLoading && <Footer />}
     </main>
   );
 }

@@ -22,7 +22,7 @@ export default function Search() {
     <div className="w-screen h-screen bg-dark grid justify-center items-center text-center">
       <form className="p-16" onSubmit={handleSubmit}>
         <svg className="w-24 h-24 fill-current block mx-auto">
-          <use href={getIcon("github")}></use>
+          <use href={getIcon("github")}/>
         </svg>
 
         <h1 className="text-3xl mt-4 mb-8">Search For Your GitProfile</h1>

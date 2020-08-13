@@ -3,3 +3,8 @@ node_modules/
 .prettierrc
 postcss.config.js
 .env
+dist/
+.cache/
+
+/dist
+/.cache
