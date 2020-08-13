@@ -80560,7 +80560,6 @@ function UserProfile() {
       if (err) {
         history.push("/notFound");
       } else {
-        console.log(stats);
         setProfileStats(stats);
         const colors = stats.map(item => ({
           language: item.label,
