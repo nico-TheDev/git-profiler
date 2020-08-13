@@ -16,7 +16,7 @@ export default function UserProfile() {
   const history = useHistory();
   const [profileData, setProfileData] = useState(null);
   const [profileStats, setProfileStats] = useState(null);
-  const [profileRepos, setProfileRepos] = useState([]);
+  const [profileRepos, setProfileRepos] = useState(null);
   const [graphData, setGraphData] = useState(null);
   const [colors, setColors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +30,7 @@ export default function UserProfile() {
       const data = await response.json();
       setProfileData(data);
     } catch (err) {
-      history.push("/error");
+      history.push(`/notFound`);
     }
   };
 
@@ -39,10 +39,8 @@ export default function UserProfile() {
 
     targetUser.getAllRepos((err, stats) => {
       if (err) {
-        console.log(err);
-        // history.push("/error");
+        history.push("/error");
       } else {
-        // console.log(stats);
         const repos = stats
           .sort((a, b) => b.stargazers_count - a.stargazers_count)
           .map((repo) => ({
@@ -66,7 +64,7 @@ export default function UserProfile() {
 
     targetUser.userStats((err, stats) => {
       if (err) {
-        // history.push("/error");
+        history.push("/notFound");
       } else {
         console.log(stats);
         setProfileStats(stats);
@@ -87,18 +85,20 @@ export default function UserProfile() {
   return (
     <main>
       {isLoading ? <Loader /> : null}
-      {profileData && <UserDetails profile={profileData} />}
-      {graphData && profileStats && (
+      {profileData && profileRepos ? (
+        <UserDetails profile={profileData} />
+      ) : null}
+      {profileStats && graphData ? (
         <UserGraphs profileStats={profileStats} repos={graphData} />
-      )}
-      {profileRepos.length !== 0 && (
+      ) : null}
+      {profileRepos ? (
         <RepoList
           repoList={profileRepos}
           setProfileRepos={setProfileRepos}
           colors={colors}
         />
-      )}
-      {!isLoading && <Footer />}
+      ) : null}
+      {!isLoading ? <Footer /> : null}
     </main>
   );
 }

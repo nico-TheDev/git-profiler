@@ -32301,7 +32301,7 @@ function Search() {
     e.preventDefault();
 
     if (username !== "") {
-      history.push("/user/".concat(username));
+      history.push("/user/".concat(username.trim()));
     }
   };
 
@@ -80517,7 +80517,7 @@ function UserProfile() {
   const history = (0, _reactRouterDom.useHistory)();
   const [profileData, setProfileData] = (0, _react.useState)(null);
   const [profileStats, setProfileStats] = (0, _react.useState)(null);
-  const [profileRepos, setProfileRepos] = (0, _react.useState)([]);
+  const [profileRepos, setProfileRepos] = (0, _react.useState)(null);
   const [graphData, setGraphData] = (0, _react.useState)(null);
   const [colors, setColors] = (0, _react.useState)([]);
   const [isLoading, setIsLoading] = (0, _react.useState)(true);
@@ -80529,7 +80529,7 @@ function UserProfile() {
       const data = await response.json();
       setProfileData(data);
     } catch (err) {
-      history.push("/error");
+      history.push("/notFound");
     }
   };
 
@@ -80537,9 +80537,8 @@ function UserProfile() {
     const targetUser = new _ghPolyglot.default("".concat(params.username, "/git-stats"));
     targetUser.getAllRepos((err, stats) => {
       if (err) {
-        console.log(err); // history.push("/error");
+        history.push("/error");
       } else {
-        // console.log(stats);
         const repos = stats.sort((a, b) => b.stargazers_count - a.stargazers_count).map(repo => ({
           id: repo.id,
           url: repo.html_url,
@@ -80558,7 +80557,8 @@ function UserProfile() {
       }
     });
     targetUser.userStats((err, stats) => {
-      if (err) {// history.push("/error");
+      if (err) {
+        history.push("/notFound");
       } else {
         console.log(stats);
         setProfileStats(stats);
@@ -80574,16 +80574,16 @@ function UserProfile() {
   (0, _react.useEffect)(() => {
     getProfileData();
   }, [params.username]);
-  return /*#__PURE__*/_react.default.createElement("main", null, isLoading ? /*#__PURE__*/_react.default.createElement(_Loader.default, null) : null, profileData && /*#__PURE__*/_react.default.createElement(_UserDetails.default, {
+  return /*#__PURE__*/_react.default.createElement("main", null, isLoading ? /*#__PURE__*/_react.default.createElement(_Loader.default, null) : null, profileData && profileRepos ? /*#__PURE__*/_react.default.createElement(_UserDetails.default, {
     profile: profileData
-  }), graphData && profileStats && /*#__PURE__*/_react.default.createElement(_UserGraphs.default, {
+  }) : null, profileStats && graphData ? /*#__PURE__*/_react.default.createElement(_UserGraphs.default, {
     profileStats: profileStats,
     repos: graphData
-  }), profileRepos.length !== 0 && /*#__PURE__*/_react.default.createElement(_RepoList.default, {
+  }) : null, profileRepos ? /*#__PURE__*/_react.default.createElement(_RepoList.default, {
     repoList: profileRepos,
     setProfileRepos: setProfileRepos,
     colors: colors
-  }), !isLoading && /*#__PURE__*/_react.default.createElement(_Footer.default, null));
+  }) : null, !isLoading ? /*#__PURE__*/_react.default.createElement(_Footer.default, null) : null);
 }
 },{"react":"../node_modules/react/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","gh-polyglot":"../node_modules/gh-polyglot/lib/index.js","dotenv":"../node_modules/dotenv/lib/main.js","./UserDetails":"../src/components/UserDetails.js","./Loader":"../src/components/Loader.js","./RepoList":"../src/components/RepoList.js","./UserGraphs":"../src/components/UserGraphs.js","./Footer":"../src/components/Footer.js"}],"../src/components/ErrorPage.js":[function(require,module,exports) {
 "use strict";
@@ -80593,7 +80593,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = ErrorPage;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _reactRouterDom = require("react-router-dom");
 
@@ -80601,8 +80601,13 @@ var _getIcon = _interopRequireDefault(require("../misc/getIcon"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
 function ErrorPage() {
   const location = (0, _reactRouterDom.useLocation)();
+  const [isNoUser] = (0, _react.useState)(location.pathname.includes('notFound'));
   return /*#__PURE__*/_react.default.createElement("div", {
     className: "w-screen h-screen bg-dark grid justify-center items-center text-center content-center"
   }, /*#__PURE__*/_react.default.createElement("svg", {
@@ -80611,7 +80616,7 @@ function ErrorPage() {
     href: (0, _getIcon.default)("github")
   })), /*#__PURE__*/_react.default.createElement("h1", {
     className: "text-3xl mt-4 mb-8"
-  }, location.pathname.includes('notFound') ? 'User not found!' : 'There seem to be an error.', /*#__PURE__*/_react.default.createElement("span", {
+  }, isNoUser ? "User Not Found" : "There seem to be a problem", /*#__PURE__*/_react.default.createElement("span", {
     role: "img",
     "aria-label": "sad face"
   }, "\uD83D\uDE25")), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
@@ -80694,7 +80699,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51838" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63346" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

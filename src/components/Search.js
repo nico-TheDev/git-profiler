@@ -10,7 +10,7 @@ export default function Search() {
     e.preventDefault();
 
     if (username !== "") {
-      history.push(`/user/${username}`);
+      history.push(`/user/${username.trim()}`);
     }
   };
 

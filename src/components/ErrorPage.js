@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import getIcon from "../misc/getIcon";
 
 export default function ErrorPage() {
   const location = useLocation();
+  const [isNoUser] = useState(location.pathname.includes('notFound'));
 
   return (
     <div className="w-screen h-screen bg-dark grid justify-center items-center text-center content-center">
@@ -12,7 +13,7 @@ export default function ErrorPage() {
       </svg>
 
       <h1 className="text-3xl mt-4 mb-8">
-        {location.pathname.includes('notFound') ? 'User not found!' : 'There seem to be an error.'}
+        {isNoUser ? "User Not Found" : "There seem to be a problem"}
         <span role="img" aria-label="sad face">
           😥
         </span>
