@@ -1,7 +1,7 @@
 # 💻Git-Profiler 
 ---
 ## 📝Description:
-    This is a project using Github API to show the user's statistics using graphs. This also shows top repositories of each user
+This is a project using Github API to show the user's statistics using graphs. This also shows top repositories of each user
 
 ## 🖥Tech Used:
     1. React - for the whole site.
@@ -12,7 +12,7 @@
 ---
 
 ## 📔Credits:
-    Original Idea: [Britanny Chang](https://github.com/bchiang7)
+Original Idea: [Britanny Chang](https://github.com/bchiang7)
 
 ## 🕸LIVE DEMO:
 [GitProfiler](https://gitprofiler.nicoignacio.tech)
