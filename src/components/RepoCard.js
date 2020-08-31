@@ -9,7 +9,7 @@ export default function RepoCard({ info, color }) {
     <a href={info.url} target="_blank" rel="noreferrer">
       <motion.figure
         layout
-        className="bg-white rounded-md shadow-md px-4 py-8 h-48 grid grid-rows-4"
+        className="bg-white rounded-md shadow-md px-4 py-4 h-48 grid grid-rows-4"
       >
         <h3 className="flex item-center text-lg mb-2">
           <svg className="w-6 h-6 fill-current mr-2">
@@ -19,7 +19,7 @@ export default function RepoCard({ info, color }) {
         </h3>
         <p className="text-xs mb-8 row-span-2">{info.description}</p>
 
-        <div className="flex text-gray-600 text-xs">
+        <div className="flex text-gray-600 text-xs items-center">
           {info.language && (
             <p className="mr-2 flex items-center">
               <span
